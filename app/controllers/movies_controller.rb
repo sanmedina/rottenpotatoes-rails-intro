@@ -13,9 +13,9 @@ class MoviesController < ApplicationController
   def index
     case params[:sort]
       when 'title'
-        @movies = Movie.all
+        @movies = Movie.order(:title)
       when 'release_date'
-        @movies = Movie.all
+        @movies = Movie.order(:release_date)
       else
         @movies = Movie.all
     end
