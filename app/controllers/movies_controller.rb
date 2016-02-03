@@ -1,5 +1,10 @@
 class MoviesController < ApplicationController
-
+  
+  def initialize
+    super
+    @all_ratings = Movie.get_all_ratings
+  end
+  
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
