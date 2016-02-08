@@ -24,6 +24,14 @@ class MoviesController < ApplicationController
       else
         @movies = Movie.all
     end
+    
+    if params[:ratings]
+      stringRatings = Array.new
+      params[:ratings].each do |rating|
+        stringRatings.push(rating)
+      end
+      @movies = @movies.where(rating: stringRatings)
+    end
   end
 
   def new
