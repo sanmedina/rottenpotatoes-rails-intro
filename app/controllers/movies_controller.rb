@@ -18,11 +18,15 @@ class MoviesController < ApplicationController
   def index
     case params[:sort]
       when 'title'
-        @movies = Movie.order(:title)
+        session[:selectedSort] = :title;
       when 'release_date'
-        @movies = Movie.order(:release_date)
-      else
-        @movies = Movie.all
+        session[:selectedSort] = :release_date;
+    end
+    
+    if session[:selectedSort]
+      @movies = Movie.order(session[:selectedSort])
+    else
+      @movies = Movie.all
     end
     
     unless session[:selectedRatings]
