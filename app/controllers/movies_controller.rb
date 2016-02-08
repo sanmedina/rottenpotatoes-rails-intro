@@ -25,12 +25,20 @@ class MoviesController < ApplicationController
         @movies = Movie.all
     end
     
+    unless session[:selectedRatings]
+      session[:selectedRatings] = Array.new
+    end
+    
     if params[:ratings]
       stringRatings = Array.new
       params[:ratings].each do |rating|
         stringRatings.push(rating)
       end
-      @movies = @movies.where(rating: stringRatings)
+      session[:selectedRatings] = stringRatings;
+    end
+    
+    unless session[:selectedRatings].empty?
+      @movies = @movies.where(rating: session[:selectedRatings])
     end
   end
 
